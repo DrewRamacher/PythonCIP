@@ -45,7 +45,9 @@ class PLCClient(object):
     def __init__(self, plc_addr, plc_port=44818):
         if not NO_NETWORK:
             try:
-                self.sock = socket.connect((plc_addr, plc_port)) #THis line is what needs to be changed
+                #self.sock = socket.connect((plc_addr, plc_port)) #THis line is what needs to be changed
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self.sock =  s.connect((plc_addr, plc_port))
             except socket.error as exc:
                 logger.warn("socket error: %s", exc)
                 logger.warn("Continuing without sending anything")
