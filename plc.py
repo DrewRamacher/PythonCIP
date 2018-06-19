@@ -118,6 +118,7 @@ class PLCClient(object):
         """Send a forward open request"""
         cippkt = CIP(service=0x54, path=CIP_Path(wordsize=2, path=b'\x20\x06\x24\x01')) 
         cippkt /= CIP_ReqForwardOpen(path_wordsize=10, path=b"\x01\x00\x34\x04\x00\x00\x00\x00\x00\x00\x00\x00\x91\x06\x54\x6f\x43\x4e\x43\x34")
+        #FOR CREATING PACKETS
         #Attempt to change Ethernet protocol
         #ToCell path (9):\x34\x04\x01\x00\x0e\x00\xb2\x00\x00\x01\x91\x06\x54\x6f\x43\x65\x6c\x6c
         #associated error: 0x0115
@@ -127,6 +128,7 @@ class PLCClient(object):
         #associated error: None!!!!!!
         #print(cippkt['TCP'])
         #End of attempt
+        
         self.send_rr_cip(cippkt)
         resppkt = self.recv_enippkt()
         if self.sock is None:

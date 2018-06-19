@@ -367,6 +367,7 @@ class CIP(scapy_all.Packet):
         0x54: "Forward_Open?",
     }
 
+    #EDIT THIS TO EDIT BEGINING OF MESSAGE< CHECK HOW FAR BACK IT GOES
     fields_desc = [
         scapy_all.BitEnumField("direction", None, 1, {0: "request", 1: "response"}),
         utils.XBitEnumField("service", 0, 7, SERVICE_CODES),
