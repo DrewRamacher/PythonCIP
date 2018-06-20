@@ -48,6 +48,7 @@ class PLCClient(object):
                 #self.sock = socket.connect((plc_addr, plc_port)) #THis line is what needs to be changed
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 self.sock =  s.connect((plc_addr, plc_port))
+                #Need to get passed this point
             except socket.error as exc:
                 logger.warn("socket error: %s", exc)
                 logger.warn("Continuing without sending anything")
