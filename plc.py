@@ -46,8 +46,10 @@ class PLCClient(object):
         if not NO_NETWORK:
             try:
                 #self.sock = socket.create_connection((plc_addr, plc_port)) #THis line is what needs to be changed
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                self.sock =  s.connect((plc_addr, plc_port))
+                self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self.sock.connect((plc_addr, plc_port))
+                if self.sock is None:
+                    print('Here3')
             except socket.error as exc:
                 logger.warn("socket error: %s", exc)
                 logger.warn("Continuing without sending anything")
@@ -60,7 +62,6 @@ class PLCClient(object):
 
         # Open an Ethernet/IP session
         sessionpkt = ENIP_TCP() / ENIP_RegisterSession() #currently sending wrong packet, look at packets to change
-        #testing being done her
         if self.sock is not None:
             self.sock.send(str(sessionpkt))
             reply_pkt = self.recv_enippkt()
