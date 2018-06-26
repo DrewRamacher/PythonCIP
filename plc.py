@@ -65,6 +65,7 @@ class PLCClient(object):
         if self.sock is not None:
             self.sock.send(str(sessionpkt))
             reply_pkt = self.recv_enippkt()
+            print(reply_pkt.show())
             self.session_id = reply_pkt.session
 
     @property
