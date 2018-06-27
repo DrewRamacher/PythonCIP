@@ -24,6 +24,7 @@ import logging
 import socket
 import struct
 import binascii
+from scapy.all import *
 
 from scapy import all as scapy_all
 
@@ -46,7 +47,9 @@ class PLCClient(object):
         if not NO_NETWORK:
             try:
                 #self.sock = socket.create_connection((plc_addr, plc_port)) #THis line is what needs to be changed
-                self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                #self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self.sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)
+                self.sock.setsockopt(socket.SOL_IP, socket.IP_HDRINCL, 1)
                 self.sock.connect((plc_addr, plc_port))
                 if self.sock is None:
                     print('Here3')
@@ -61,11 +64,15 @@ class PLCClient(object):
         self.sequence = 1
 
         # Open an Ethernet/IP session
-        sessionpkt = ENIP_TCP() / ENIP_RegisterSession() #currently sending wrong packet, look at packets to change
+        #sessionpkt = ENIP_TCP() / ENIP_RegisterSession()
+        sessionpkt = IP() / TCP() / ENIP_TCP() / ENIP_RegisterSession() #currently sending wrong packet, look at packets to change
         if self.sock is not None:
             self.sock.send(str(sessionpkt))
+            reply_pkt = IP() / TCP() / ENIP_TCP() / ENIP_RegisterSession()
             reply_pkt = self.recv_enippkt()
             print(reply_pkt.show())
+            #print(reply_pkt.summary())
+            #print(reply_pkt['TCP'].show())
             self.session_id = reply_pkt.session
 
     @property
@@ -112,7 +119,7 @@ class PLCClient(object):
         if self.sock is None:
             return
         pktbytes = self.sock.recv(2000)
-        #pktbytes = socket.recv(4096)
+        #pktbytes = self.sock.recv(4096)
         print(binascii.hexlify(pktbytes))
         pkt = ENIP_TCP(pktbytes)
         return pkt
