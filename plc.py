@@ -48,7 +48,10 @@ class PLCClient(object):
             try:
                 #self.sock = socket.create_connection((plc_addr, plc_port)) #THis line is what needs to be changed
                 #self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                self.sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)
+                #
+                #
+                #
+                self.sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW) ##### Causing warning
                 self.sock.setsockopt(socket.SOL_IP, socket.IP_HDRINCL, 1)
                 self.sock.connect((plc_addr, plc_port))
                 if self.sock is None:
