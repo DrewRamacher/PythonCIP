@@ -49,6 +49,8 @@ class PLCClient(object):
                 #self.sock = socket.create_connection((plc_addr, plc_port)) #THis line is what needs to be changed
                 #self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 #
+                #Try SUDO
+                #Try to send packet sequence with sendp (how to store response?)
                 #
                 #
                 self.sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW) ##### Causing warning
