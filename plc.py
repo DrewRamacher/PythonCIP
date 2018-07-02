@@ -70,7 +70,7 @@ class PLCClient(object):
 
         # Open an Ethernet/IP session
         #sessionpkt = ENIP_TCP() / ENIP_RegisterSession()
-        sessionpkt = IP() / TCP() / ENIP_TCP() / ENIP_RegisterSession() #currently sending wrong packet, look at packets to change
+        sessionpkt = IP() / TCP() / ENIP_TCP() / ENIP_RegisterSession() 
         if self.sock is not None:
             self.sock.send(str(sessionpkt))
             reply_pkt = IP() / TCP() / ENIP_TCP() / ENIP_RegisterSession()
