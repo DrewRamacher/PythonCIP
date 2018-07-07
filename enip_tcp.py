@@ -192,8 +192,8 @@ ETH_P_WCCP     = 0x883E    # b-cache coordination protocol
 # Simple Ethernet Frame Class
 class EtherPacket(scapy_all.Packet):
     def __init__(self, dst='ff:ff:ff:ff:ff:ff', src='ff:ff:ff:ff:ff:ff', protocol=ETH_P_IP):
-        self.src = src                # Source MAC
         self.dst = dst                # Destination MAC
+        self.src = src                # Source MAC
         self.protocol = protocol      # Protocol Types
         self.raw = None               # Raw Data
         self.assemble_eth_feilds()
