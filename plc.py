@@ -52,6 +52,7 @@ class PLCClient(object):
                 #SUDO works, try to send imitaiton packet now
                 #Try to send packet sequence with sendp (how to store response?)
                 #
+                #
                 self.sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW) ##### Causing warning
                 self.sock.setsockopt(socket.SOL_IP, socket.IP_HDRINCL, 1)
                 self.sock.connect((plc_addr, plc_port))
